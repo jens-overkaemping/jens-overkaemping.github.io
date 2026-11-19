@@ -4,84 +4,265 @@
     <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Netzwerk-Labor – Jens Overkämping</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #030712 0%, #0b1528 50%, #030712 100%);
+            background: linear-gradient(
+                135deg,
+                #030712 0%,
+                #0b1528 50%,
+                #030712 100%
+            );
             background-attachment: fixed;
             color: #ffffff;
             margin: 0;
             padding: 40px 20px;
+
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .container {
             width: 100%;
             max-width: 800px;
+
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(10px);
+
             border: 2px solid #00d2ff;
             border-radius: 15px;
+
             padding: 30px;
+
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-            box-sizing: border-box;
         }
-        h1, h2 { color: #00d2ff; margin-top: 0; }
-        h2 { border-bottom: 1px solid rgba(0, 210, 255, 0.2); padding-bottom: 8px; margin-top: 30px; }
-        p { line-height: 1.6; }
-        strong { color: #00ffcc; }
-        ul { padding-left: 20px; line-height: 1.8; }
+
+        h1, h2 {
+            color: #00d2ff;
+            margin-top: 0;
+        }
+
+        h2 {
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        strong {
+            color: #00ffcc;
+        }
+
+        ul {
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
         .back-btn {
             display: inline-block;
             margin-bottom: 20px;
             padding: 10px 20px;
+
             background-color: transparent;
             color: #00ffcc;
+
             border: 1px solid #00ffcc;
             text-decoration: none;
             border-radius: 5px;
+
             font-weight: bold;
             transition: all 0.3s;
         }
+
         .back-btn:hover {
             background-color: #00ffcc;
             color: #030712;
             box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
         }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="container">
-        <a href="/unterlagen-jens-9372/index.html" class="back-btn">← Zurück zum Profil</a>
-        
+
+        <a href="../index.html" class="back-btn">
+            ← Zurück zum Profil
+        </a>
+
         <h1>🌐 Protokoll-Labor: Infrastruktur-Grundlagen</h1>
-        <p>Erarbeitung der essenziellen Netzwerkdienste im Selbststudium zur Vorbereitung auf die Ausbildung im Bereich Systemintegration.</p>
+
+        <p>
+            Erarbeitung der essenziellen Netzwerkdienste im Selbststudium
+            zur Vorbereitung auf die Ausbildung im Bereich Systemintegration.
+        </p>
 
         <h2>1. DHCP (Dynamic Host Configuration Protocol)</h2>
-        <p>Automatisierte Zuweisung von Netzwerkkonfigurationen an Clients im IP-Kreis.</p>
+
+        <p>
+            Automatisierte Zuweisung von Netzwerkkonfigurationen
+            an Geräte innerhalb eines IP-Netzwerks.
+        </p>
+
         <ul>
-            <li><strong>Zuweisung von:</strong> IP-Adresse, Subnetzmaske, Standard-Gateway und DNS-Servern.</li>
-            <li><strong>Praxis-Architektur:</strong> Realisierbar über Standalone-Server (z. B. Linux-Dienst) oder standardmäßig integriert in Routing-Endgeräten im Heimnetzwerk.</li>
+            <li>
+                <strong>Zuweisung von:</strong>
+                IP-Adresse, Subnetzmaske, Standard-Gateway und DNS-Servern.
+            </li>
+
+            <li>
+                <strong>Praxis-Architektur:</strong>
+                Realisierbar über eigenständige Server
+                (z. B. Linux-Dienste oder Windows Server)
+                oder standardmäßig integrierte Funktionen
+                in Routing-Endgeräten im Heimnetzwerk.
+            </li>
+
+            <li>
+                <strong>DHCP-Ablauf:</strong>
+                Discover, Offer, Request und Acknowledge (DORA).
+            </li>
         </ul>
 
         <h2>2. DNS (Domain Name System)</h2>
-        <p>Hierarchische Namensauflösung im WAN/LAN zur Übersetzung von Domainnamen in maschinenlesbare IP-Adressen.</p>
+
+        <p>
+            Hierarchisches Namenssystem zur Übersetzung von
+            Domainnamen in IP-Adressen und zur Bereitstellung
+            weiterer Informationen über Netzwerkdienste.
+        </p>
+
         <ul>
-            <li><strong>A-Record:</strong> Auflösung in klassische IPv4-Adressen (beschränkter Adressraum).</li>
-            <li><strong>AAAA-Record:</strong> Auflösung in moderne IPv6-Adressen (erweiterter, zukunftssicherer Adressraum).</li>
-            <li><strong>CNAME-Record:</strong> Alias-Verweis einer Domain auf eine externe Ziel-Domain.</li>
-            <li><strong>TTL (Time to Live):</strong> Definiert die maximale Caching-Dauer der Records im lokalen Zwischenspeicher vor einer Neuabfrage.</li>
+            <li>
+                <strong>A-Record:</strong>
+                Auflösung eines Domainnamens in eine IPv4-Adresse.
+            </li>
+
+            <li>
+                <strong>AAAA-Record:</strong>
+                Auflösung eines Domainnamens in eine IPv6-Adresse.
+            </li>
+
+            <li>
+                <strong>CNAME-Record:</strong>
+                Alias-Verweis eines Domainnamens auf einen
+                anderen kanonischen Domainnamen.
+            </li>
+
+            <li>
+                <strong>MX-Record:</strong>
+                Legt fest, welche Mailserver für den Empfang
+                von E-Mails einer Domain zuständig sind.
+            </li>
+
+            <li>
+                <strong>TTL (Time to Live):</strong>
+                Gibt an, wie lange ein DNS-Eintrag
+                zwischengespeichert werden darf.
+            </li>
         </ul>
 
         <h2>3. Gateway & NAT</h2>
-        <p>Die logische Schnittstelle und Verbindungskomponente zwischen dem lokalen LAN und externen Netzen (WAN).</p>
+
+        <p>
+            Das Standard-Gateway stellt die Verbindung zwischen
+            dem lokalen Netzwerk (LAN) und anderen Netzwerken,
+            beispielsweise dem Internet (WAN), her.
+        </p>
+
         <ul>
-            <li><strong>Routing:</strong> Pakete an netzwerkfremde IP-Adressen werden automatisch an das Standard-Gateway weitergeleitet.</li>
-            <li><strong>NAT (Network Address Translation):</strong> Das Gateway maskiert private, lokale IP-Adressen und übersetzt sie in eine einzige öffentliche WAN-IP.</li>
+            <li>
+                <strong>Routing:</strong>
+                Datenpakete an netzwerkfremde IP-Adressen
+                werden an das Standard-Gateway weitergeleitet.
+            </li>
+
+            <li>
+                <strong>NAT (Network Address Translation):</strong>
+                Übersetzt IP-Adressen zwischen verschiedenen
+                Netzwerkbereichen.
+            </li>
+
+            <li>
+                <strong>PAT (Port Address Translation):</strong>
+                Ermöglicht mehreren Geräten im privaten Netzwerk,
+                eine gemeinsame öffentliche IP-Adresse zu nutzen,
+                indem zusätzlich Portnummern zur Unterscheidung
+                verwendet werden.
+            </li>
         </ul>
+
+        <h2>4. ARP (Address Resolution Protocol)</h2>
+
+        <p>
+            ARP wird innerhalb lokaler IPv4-Netzwerke verwendet,
+            um zu einer bekannten IPv4-Adresse die passende
+            MAC-Adresse eines Geräts zu ermitteln.
+        </p>
+
+        <ul>
+            <li>
+                <strong>ARP Request:</strong>
+                Ein Gerät fragt im lokalen Netzwerk nach
+                der MAC-Adresse zu einer bestimmten IPv4-Adresse.
+            </li>
+
+            <li>
+                <strong>ARP Reply:</strong>
+                Das gesuchte Gerät antwortet mit seiner MAC-Adresse.
+            </li>
+
+            <li>
+                <strong>ARP-Cache:</strong>
+                Bereits ermittelte Zuordnungen werden
+                vorübergehend gespeichert.
+            </li>
+        </ul>
+
+        <h2>5. TCP & UDP</h2>
+
+        <p>
+            TCP und UDP sind wichtige Transportprotokolle,
+            die für die Übertragung von Daten zwischen
+            Anwendungen in Netzwerken verwendet werden.
+        </p>
+
+        <ul>
+            <li>
+                <strong>TCP (Transmission Control Protocol):</strong>
+                Verbindungsorientiertes Protokoll mit zuverlässiger
+                und geordneter Datenübertragung.
+            </li>
+
+            <li>
+                <strong>UDP (User Datagram Protocol):</strong>
+                Verbindungsloses Protokoll mit geringem
+                Verwaltungsaufwand. Eine Zustellung oder
+                Reihenfolge der Datenpakete wird nicht garantiert.
+            </li>
+        </ul>
+
     </div>
 
 </body>
