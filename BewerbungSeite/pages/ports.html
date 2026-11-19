@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -9,9 +8,7 @@
     <title>Port-Trainer – Jens Overkämping</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
@@ -121,15 +118,11 @@
             min-height: 28px;
             margin-top: 20px;
             font-weight: bold;
+            line-height: 1.5;
         }
 
-        .feedback.correct {
-            color: #00ffcc;
-        }
-
-        .feedback.wrong {
-            color: #ff6688;
-        }
+        .feedback.correct { color: #00ffcc; }
+        .feedback.wrong { color: #ff6688; }
 
         .score {
             display: flex;
@@ -141,9 +134,7 @@
             color: #a0aec0;
         }
 
-        .score strong {
-            color: #00ffcc;
-        }
+        .score strong { color: #00ffcc; }
 
         .restart-btn {
             margin-top: 25px;
@@ -164,43 +155,29 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            .container {
-                padding: 20px;
-            }
-
-            .port-display {
-                font-size: 40px;
-            }
-
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 20px 12px; }
+            .container { padding: 20px; }
+            .port-display { font-size: 40px; }
+            .options-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
-
     <main class="container">
 
-        <a href="../index.html" class="back-btn">
+        <a href="../../index.html" class="back-btn">
             ← Zurück zum Profil
         </a>
 
-        <h1>⚡ Port- & Protokoll-Trainer</h1>
+        <h1>⚡ Port- &amp; Protokoll-Trainer</h1>
 
         <p>
             Welches IT-Protokoll verwendet standardmäßig diesen Port?
             Teste dein Wissen rund um wichtige Netzwerkdienste.
         </p>
 
-        <div class="port-display" id="portNum">
-            Port 22
-        </div>
+        <div class="port-display" id="portNum">Port 22</div>
 
         <div class="options-grid" id="optionsContainer"></div>
 
@@ -222,19 +199,24 @@
     <script>
         const quizData = [
             {
+                port: "Port 20 / 21",
+                correct: "FTP (Dateiübertragung)",
+                wrong: ["SSH", "HTTP", "DNS"]
+            },
+            {
                 port: "Port 22",
                 correct: "SSH (Secure Shell)",
                 wrong: ["FTP", "HTTP", "DNS"]
             },
             {
-                port: "Port 80",
-                correct: "HTTP (Webverkehr)",
+                port: "Port 23",
+                correct: "Telnet",
                 wrong: ["HTTPS", "SSH", "DHCP"]
             },
             {
-                port: "Port 443",
-                correct: "HTTPS (Sicherer Webverkehr)",
-                wrong: ["HTTP", "FTP", "SMTP"]
+                port: "Port 25",
+                correct: "SMTP (E-Mail-Versand)",
+                wrong: ["DNS", "HTTPS", "RDP"]
             },
             {
                 port: "Port 53",
@@ -247,14 +229,9 @@
                 wrong: ["DNS", "FTP", "SMTP"]
             },
             {
-                port: "Port 3389",
-                correct: "RDP (Remote Desktop)",
-                wrong: ["SSH", "HTTP", "MySQL"]
-            },
-            {
-                port: "Port 25",
-                correct: "SMTP (E-Mail-Versand)",
-                wrong: ["DNS", "HTTPS", "RDP"]
+                port: "Port 80",
+                correct: "HTTP (Webverkehr)",
+                wrong: ["HTTPS", "SSH", "DHCP"]
             },
             {
                 port: "Port 110",
@@ -262,14 +239,34 @@
                 wrong: ["IMAP", "SSH", "FTP"]
             },
             {
+                port: "Port 123",
+                correct: "NTP (Zeitsynchronisierung)",
+                wrong: ["SMTP", "DNS", "RDP"]
+            },
+            {
                 port: "Port 143",
                 correct: "IMAP (E-Mail-Abruf)",
                 wrong: ["SMTP", "DNS", "HTTP"]
             },
             {
+                port: "Port 443",
+                correct: "HTTPS (Sicherer Webverkehr)",
+                wrong: ["HTTP", "FTP", "SMTP"]
+            },
+            {
+                port: "Port 445",
+                correct: "SMB (Datei- und Druckfreigaben)",
+                wrong: ["SSH", "DNS", "RDP"]
+            },
+            {
                 port: "Port 3306",
                 correct: "MySQL (Datenbank)",
                 wrong: ["RDP", "SSH", "DHCP"]
+            },
+            {
+                port: "Port 3389",
+                correct: "RDP (Remote Desktop)",
+                wrong: ["SSH", "HTTP", "MySQL"]
             }
         ];
 
@@ -336,9 +333,7 @@
         }
 
         function checkAnswer(selected, clickedButton) {
-            if (!canClick) {
-                return;
-            }
+            if (!canClick) return;
 
             canClick = false;
 
@@ -381,6 +376,7 @@
 
         function restartQuiz() {
             clearTimeout(nextQuestionTimer);
+            nextQuestionTimer = null;
 
             score = 0;
             errors = 0;
@@ -397,6 +393,5 @@
         // Erste Frage laden.
         loadQuestion();
     </script>
-
 </body>
 </html>
