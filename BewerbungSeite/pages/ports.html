@@ -1,11 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interaktiver IT-Port-Trainer zum Lernen wichtiger Netzwerkports und Protokolle.">
     <title>Port-Trainer – Jens Overkämping</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #030712 0%, #0b1528 50%, #030712 100%);
@@ -16,7 +23,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
+
         .container {
             width: 100%;
             max-width: 600px;
@@ -27,9 +36,19 @@
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
             text-align: center;
-            box-sizing: border-box;
         }
-        h1 { color: #00d2ff; margin-top: 0; }
+
+        h1 {
+            color: #00d2ff;
+            margin-top: 0;
+            line-height: 1.3;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
         .back-btn {
             display: inline-block;
             margin-bottom: 20px;
@@ -42,9 +61,28 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .back-btn:hover { background-color: #00ffcc; color: #030712; box-shadow: 0 0 10px rgba(0, 255, 204, 0.4); }
-        .port-display { font-size: 48px; font-weight: bold; color: #00ffcc; margin: 30px 0; text-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+
+        .back-btn:hover {
+            background-color: #00ffcc;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+        }
+
+        .port-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ffcc;
+            margin: 30px 0;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
         .option-btn {
             padding: 15px;
             background: rgba(3, 7, 18, 0.6);
@@ -56,87 +94,309 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .option-btn:hover:not(:disabled) { background: #00d2ff; color: #030712; }
-        .option-btn.correct-ans { background: #00ffcc !important; color: #030712 !important; border-color: #00ffcc !important; }
-        .option-btn.wrong-ans { background: #ff0055 !important; color: #ffffff !important; border-color: #ff0055 !important; }
-        .score { margin-top: 25px; font-size: 18px; color: #a0aec0; }
-        .score strong { color: #00ffcc; }
+
+        .option-btn:hover:not(:disabled) {
+            background: #00d2ff;
+            color: #030712;
+        }
+
+        .option-btn:disabled {
+            cursor: default;
+            opacity: 0.9;
+        }
+
+        .option-btn.correct-ans {
+            background: #00ffcc !important;
+            color: #030712 !important;
+            border-color: #00ffcc !important;
+        }
+
+        .option-btn.wrong-ans {
+            background: #ff0055 !important;
+            color: #ffffff !important;
+            border-color: #ff0055 !important;
+        }
+
+        .feedback {
+            min-height: 28px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            color: #00ffcc;
+        }
+
+        .feedback.wrong {
+            color: #ff6688;
+        }
+
+        .score {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 25px;
+            font-size: 18px;
+            color: #a0aec0;
+        }
+
+        .score strong {
+            color: #00ffcc;
+        }
+
+        .restart-btn {
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: transparent;
+            color: #00d2ff;
+            border: 1px solid #00d2ff;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: #00d2ff;
+            color: #030712;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .port-display {
+                font-size: 40px;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <a href="/unterlagen-jens-9372/index.html" class="back-btn"> ← Zurück zum Profil </a>
+    <main class="container">
+
+        <a href="../index.html" class="back-btn">
+            ← Zurück zum Profil
+        </a>
+
         <h1>⚡ Port- & Protokoll-Trainer</h1>
-        <p>Welches IT-Protokoll nutzt standardmäßig diesen Port? Testen Sie Ihr Wissen.</p>
-        
-        <div class="port-display" id="portNum">Port 22</div>
-        
+
+        <p>
+            Welches IT-Protokoll verwendet standardmäßig diesen Port?
+            Teste dein Wissen rund um wichtige Netzwerkdienste.
+        </p>
+
+        <div class="port-display" id="portNum">
+            Port 22
+        </div>
+
         <div class="options-grid" id="optionsContainer"></div>
 
-        <div class="score">Punkte: <strong id="scoreVal">0</strong></div>
-    </div>
+        <div class="feedback" id="feedback" aria-live="polite">
+            Wähle die richtige Antwort aus.
+        </div>
+
+        <div class="score">
+            <div>Punkte: <strong id="scoreVal">0</strong></div>
+            <div>Fehler: <strong id="errorVal">0</strong></div>
+        </div>
+
+        <button type="button" class="restart-btn" id="restartBtn">
+            Quiz neu starten
+        </button>
+
+    </main>
 
     <script>
         const quizData = [
-            { port: "Port 22", correct: "SSH (Secure Shell)", wrong: ["FTP", "HTTP", "DNS"] },
-            { port: "Port 80", correct: "HTTP (Webtraffic)", wrong: ["HTTPS", "SSH", "DHCP"] },
-            { port: "Port 443", correct: "HTTPS (Sicheres Web)", wrong: ["HTTP", "FTP", "SMTP"] },
-            { port: "Port 53", correct: "DNS (Namensauflösung)", wrong: ["DHCP", "SSH", "RDP"] },
-            { port: "Port 67 / 68", correct: "DHCP (IP-Vergabe)", wrong: ["DNS", "FTP", "SMTP"] },
-            { port: "Port 3389", correct: "RDP (Remote Desktop)", wrong: ["SSH", "HTTP", "MySQL"] }
+            {
+                port: "Port 22",
+                correct: "SSH (Secure Shell)",
+                wrong: ["FTP", "HTTP", "DNS"]
+            },
+            {
+                port: "Port 80",
+                correct: "HTTP (Webverkehr)",
+                wrong: ["HTTPS", "SSH", "DHCP"]
+            },
+            {
+                port: "Port 443",
+                correct: "HTTPS (Sicherer Webverkehr)",
+                wrong: ["HTTP", "FTP", "SMTP"]
+            },
+            {
+                port: "Port 53",
+                correct: "DNS (Namensauflösung)",
+                wrong: ["DHCP", "SSH", "RDP"]
+            },
+            {
+                port: "Port 67 / 68",
+                correct: "DHCP (IP-Adressvergabe)",
+                wrong: ["DNS", "FTP", "SMTP"]
+            },
+            {
+                port: "Port 3389",
+                correct: "RDP (Remote Desktop)",
+                wrong: ["SSH", "HTTP", "MySQL"]
+            },
+            {
+                port: "Port 25",
+                correct: "SMTP (E-Mail-Versand)",
+                wrong: ["DNS", "HTTPS", "RDP"]
+            },
+            {
+                port: "Port 110",
+                correct: "POP3 (E-Mail-Abruf)",
+                wrong: ["IMAP", "SSH", "FTP"]
+            },
+            {
+                port: "Port 143",
+                correct: "IMAP (E-Mail-Abruf)",
+                wrong: ["SMTP", "DNS", "HTTP"]
+            },
+            {
+                port: "Port 3306",
+                correct: "MySQL (Datenbank)",
+                wrong: ["RDP", "SSH", "DHCP"]
+            }
         ];
 
-        let currentQuestion = {};
+        let currentQuestion = null;
         let score = 0;
+        let errors = 0;
         let canClick = true;
+        let previousQuestionIndex = -1;
+        let nextQuestionTimer = null;
+
+        const portDisplay = document.getElementById("portNum");
+        const optionsContainer = document.getElementById("optionsContainer");
+        const scoreDisplay = document.getElementById("scoreVal");
+        const errorDisplay = document.getElementById("errorVal");
+        const feedback = document.getElementById("feedback");
+        const restartBtn = document.getElementById("restartBtn");
 
         function loadQuestion() {
             canClick = true;
-            currentQuestion = quizData[Math.floor(Math.random() * quizData.length)];
-            document.getElementById('portNum').innerText = currentQuestion.port;
-            
-            let answers = [currentQuestion.correct, ...currentQuestion.wrong];
-            answers.sort(() => Math.random() - 0.5);
 
-            const container = document.getElementById('optionsContainer');
-            container.innerHTML = "";
-            
-            answers.forEach(ans => {
-                const btn = document.createElement('button');
-                btn.className = "option-btn";
-                btn.innerText = ans;
-                btn.onclick = (e) => checkAnswer(ans, e.target);
-                container.appendChild(btn);
+            let questionIndex;
+
+            do {
+                questionIndex = Math.floor(Math.random() * quizData.length);
+            } while (
+                quizData.length > 1 &&
+                questionIndex === previousQuestionIndex
+            );
+
+            previousQuestionIndex = questionIndex;
+            currentQuestion = quizData[questionIndex];
+
+            portDisplay.textContent = currentQuestion.port;
+
+            const answers = [
+                currentQuestion.correct,
+                ...currentQuestion.wrong
+            ];
+
+            // Antwortmöglichkeiten zufällig mischen.
+            for (let i = answers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [answers[i], answers[j]] = [answers[j], answers[i]];
+            }
+
+            optionsContainer.innerHTML = "";
+
+            answers.forEach(answer => {
+                const button = document.createElement("button");
+
+                button.type = "button";
+                button.className = "option-btn";
+                button.textContent = answer;
+
+                button.addEventListener("click", () => {
+                    checkAnswer(answer, button);
+                });
+
+                optionsContainer.appendChild(button);
             });
+
+            feedback.textContent = "Wähle die richtige Antwort aus.";
+            feedback.className = "feedback";
         }
 
         function checkAnswer(selected, clickedButton) {
-            if (!canClick) return;
+            if (!canClick) {
+                return;
+            }
+
             canClick = false;
 
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => btn.disabled = true);
+            const buttons = optionsContainer.querySelectorAll(".option-btn");
 
-            if(selected === currentQuestion.correct) {
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
+
+            if (selected === currentQuestion.correct) {
                 score++;
-                clickedButton.classList.add('correct-ans');
+
+                clickedButton.classList.add("correct-ans");
+                feedback.textContent = "✓ Richtig! Gut gemacht.";
+                feedback.className = "feedback correct";
+
             } else {
-                score = 0;
-                clickedButton.classList.add('wrong-ans');
-                buttons.forEach(btn => {
-                    if (btn.innerText === currentQuestion.correct) {
-                        btn.classList.add('correct-ans');
+                errors++;
+
+                clickedButton.classList.add("wrong-ans");
+
+                buttons.forEach(button => {
+                    if (button.textContent === currentQuestion.correct) {
+                        button.classList.add("correct-ans");
                     }
                 });
+
+                feedback.textContent =
+                    "✗ Leider falsch. Die richtige Antwort ist: " +
+                    currentQuestion.correct;
+
+                feedback.className = "feedback wrong";
             }
-            
-            document.getElementById('scoreVal').innerText = score;
-            
-            setTimeout(loadQuestion, 1200);
+
+            scoreDisplay.textContent = score;
+            errorDisplay.textContent = errors;
+
+            nextQuestionTimer = setTimeout(loadQuestion, 1800);
         }
 
+        function restartQuiz() {
+            clearTimeout(nextQuestionTimer);
+
+            score = 0;
+            errors = 0;
+            previousQuestionIndex = -1;
+
+            scoreDisplay.textContent = score;
+            errorDisplay.textContent = errors;
+
+            loadQuestion();
+        }
+
+        restartBtn.addEventListener("click", restartQuiz);
+
+        // Erste Frage laden.
         loadQuestion();
     </script>
+
 </body>
 </html>
