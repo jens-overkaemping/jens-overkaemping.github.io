@@ -1,69 +1,89 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
+    <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interaktiver Mathe-Trainer mit fallenden Rechenaufgaben, Combo-System und Highscore.">
     <title>Fallende Mathe-Challenge 🚀</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-image: url('neon-bg.jpg'); 
-            background-attachment: fixed; 
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat; 
-            background-color: #030712; 
+            background-image: url('../assets/neon-bg.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #030712;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px;
         }
+
         .game-container {
-            background: rgba(15, 23, 42, 0.85); 
-            backdrop-filter: blur(10px); 
-            border: 2px solid #00d2ff; 
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid #00d2ff;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); 
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
             text-align: center;
-            width: 400px;
-            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 440px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        h1 { color: #00d2ff; margin: 0 0 5px 0; font-size: 24px; }
+
+        h1 {
+            color: #00d2ff;
+            margin: 0 0 5px;
+            font-size: 24px;
+        }
+
         .combo-badge {
             font-size: 16px;
             color: #ff0055;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            height: 20px;
+            min-height: 24px;
             transition: all 0.2s ease;
             text-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
         }
+
         .box-container {
             position: relative;
             width: 100%;
-            height: 350px; 
-            background: rgba(3, 7, 18, 0.6);
-            border: 1px solid rgba(0, 210, 255, 0.2);
+            height: 350px;
+            background: rgba(3, 7, 18, 0.7);
+            border: 1px solid rgba(0, 210, 255, 0.3);
             border-radius: 8px;
             overflow: hidden;
             margin-bottom: 15px;
         }
+
         .falling-question {
             position: absolute;
             left: 0;
             right: 0;
-            top: 0px; 
+            top: 0;
             font-size: 28px;
             color: #ffffff;
             font-weight: bold;
             text-shadow: 0 0 10px #00d2ff;
         }
+
         .game-input {
-            width: 120px;
+            width: 140px;
             padding: 10px;
             font-size: 22px;
             border-radius: 5px;
@@ -74,15 +94,29 @@
             outline: none;
             margin-bottom: 15px;
         }
+
+        .game-input:focus {
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
+        }
+
         .stats-container {
             display: flex;
             justify-content: space-around;
+            gap: 10px;
             margin-top: 15px;
             font-weight: bold;
             font-size: 18px;
+            flex-wrap: wrap;
         }
-        .score-display { color: #00ffcc; }
-        .highscore-display { color: #ffaa00; }
+
+        .score-display {
+            color: #00ffcc;
+        }
+
+        .highscore-display {
+            color: #ffaa00;
+        }
+
         .back-link {
             display: block;
             margin-top: 20px;
@@ -90,192 +124,383 @@
             text-decoration: none;
             font-size: 14px;
         }
-        .back-link:hover { color: #00d2ff; }
+
+        .back-link:hover {
+            color: #00d2ff;
+        }
+
+        .game-over {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .game-over h2 {
+            color: #ff0055;
+        }
+
+        .restart-btn {
+            background: transparent;
+            color: #00ffcc;
+            border: 1px solid #00ffcc;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: #00ffcc;
+            color: #030712;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .game-container {
+                padding: 18px;
+            }
+
+            h1 {
+                font-size: 21px;
+            }
+
+            .box-container {
+                height: 320px;
+            }
+
+            .falling-question {
+                font-size: 25px;
+            }
+
+            .stats-container {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="game-container" id="gameCard">
+    <main class="game-container" id="gameCard">
+
         <h1>Math Drop Ultimate 🧠☄️</h1>
-        <div class="combo-badge" id="comboText"></div>
-        
-        <div class="box-container">
-            <div class="falling-question" id="questionText">Berechne...</div>
+
+        <div class="combo-badge" id="comboText" aria-live="polite"></div>
+
+        <div class="box-container" id="gameArea">
+            <div class="falling-question" id="questionText">
+                Berechne...
+            </div>
         </div>
 
-        <input type="number" id="userInput" class="game-input" placeholder="?" autofocus>
+        <input
+            type="number"
+            id="userInput"
+            class="game-input"
+            placeholder="?"
+            aria-label="Ergebnis eingeben"
+            autocomplete="off"
+            disabled
+        >
 
         <div class="stats-container">
-            <div class="score-display">Punkte: <span id="scoreText">0</span></div>
-            <div class="highscore-display">🏆 Highscore: <span id="highscoreText">0</span></div>
+            <div class="score-display">
+                Punkte: <span id="scoreText">0</span>
+            </div>
+
+            <div class="highscore-display">
+                🏆 Highscore: <span id="highscoreText">0</span>
+            </div>
         </div>
-        
-        <a href="../index.html" class="back-link"> ← Zurück zur Startseite
-</a>
-    </div>
+
+        <div class="game-over" id="gameOver">
+            <h2>Game Over! 💥</h2>
+            <p>Deine Punkte: <strong id="finalScore">0</strong></p>
+            <button type="button" class="restart-btn" id="restartBtn">
+                Nochmal spielen
+            </button>
+        </div>
+
+        <a href="../index.html" class="back-link">
+            ← Zurück zur Startseite
+        </a>
+
+    </main>
 
     <script>
-        let num1, num2, correctAnswer;
+        let num1;
+        let num2;
+        let correctAnswer;
+
         let score = 0;
         let highscore = 0;
-        let currentY = 0;     
-        let startSpeed = 1.2;  
-        let fallSpeed = 1.2;    
-        let gameInterval;     
+
+        let currentY = 0;
+        const startSpeed = 1.2;
+        let fallSpeed = startSpeed;
+
+        let gameInterval = null;
         let isGameOver = false;
 
         let comboCount = 0;
         let multiplier = 1;
         let lastSolveTime = 0;
-        let canAnswer = true; 
+        let canAnswer = true;
+
+        const gameCard = document.getElementById("gameCard");
+        const gameArea = document.getElementById("gameArea");
+        const questionText = document.getElementById("questionText");
+        const userInput = document.getElementById("userInput");
+        const scoreText = document.getElementById("scoreText");
+        const highscoreText = document.getElementById("highscoreText");
+        const comboText = document.getElementById("comboText");
+        const gameOverBox = document.getElementById("gameOver");
+        const finalScore = document.getElementById("finalScore");
+        const restartBtn = document.getElementById("restartBtn");
 
         function loadHighscore() {
             try {
-                let savedHighscore = localStorage.getItem('mathDropHighscore');
+                const savedHighscore = localStorage.getItem("mathDropHighscore");
+
                 if (savedHighscore !== null) {
-                    highscore = parseInt(savedHighscore);
-                    document.getElementById('highscoreText').innerText = highscore;
+                    const parsed = Number.parseInt(savedHighscore, 10);
+
+                    if (Number.isFinite(parsed) && parsed >= 0) {
+                        highscore = parsed;
+                    }
                 }
-            } catch (e) {
+            } catch (error) {
                 highscore = 0;
-                document.getElementById('highscoreText').innerText = highscore;
             }
+
+            highscoreText.textContent = highscore;
         }
 
         function updateHighscore() {
-            try {
-                if (score > highscore) {
-                    highscore = score;
-                    localStorage.setItem('mathDropHighscore', highscore);
-                    document.getElementById('highscoreText').innerText = highscore;
+            if (score > highscore) {
+                highscore = score;
+                highscoreText.textContent = highscore;
+
+                try {
+                    localStorage.setItem("mathDropHighscore", highscore);
+                } catch (error) {
+                    // Das Spiel funktioniert auch ohne lokalen Speicher.
                 }
-            } catch (e) {}
+            }
         }
-                function generateQuestion() {
+
+        function generateQuestion() {
             if (isGameOver) return;
 
-            const operators = ['+', '-', '*'];
-            const randomOperator = operators[Math.floor(Math.random() * operators.length)];
+            const operators = ["+", "-", "*"];
+            const operator = operators[
+                Math.floor(Math.random() * operators.length)
+            ];
 
-            if (randomOperator === '+') {
+            if (operator === "+") {
                 num1 = Math.floor(Math.random() * 20) + 1;
                 num2 = Math.floor(Math.random() * 20) + 1;
                 correctAnswer = num1 + num2;
-                document.getElementById('questionText').innerText = num1 + " + " + num2;
-            } else if (randomOperator === '-') {
+
+            } else if (operator === "-") {
                 num1 = Math.floor(Math.random() * 20) + 5;
-                num2 = Math.floor(Math.random() * num1) + 1; 
+                num2 = Math.floor(Math.random() * num1) + 1;
                 correctAnswer = num1 - num2;
-                document.getElementById('questionText').innerText = num1 + " - " + num2;
-            } else if (randomOperator === '*') {
+
+            } else {
                 num1 = Math.floor(Math.random() * 10) + 1;
                 num2 = Math.floor(Math.random() * 10) + 1;
                 correctAnswer = num1 * num2;
-                document.getElementById('questionText').innerText = num1 + " × " + num2;
             }
 
+            const displayOperator = operator === "*" ? "×" : operator;
+
+            questionText.textContent =
+                num1 + " " + displayOperator + " " + num2;
+
             currentY = 0;
-            document.getElementById('questionText').style.top = currentY + "px";
-            document.getElementById('userInput').value = ""; 
-            document.getElementById('userInput').focus();
+            questionText.style.top = "0px";
+
+            userInput.value = "";
+            userInput.focus();
         }
 
         function startFalling() {
+            clearInterval(gameInterval);
+
             gameInterval = setInterval(() => {
-                if (isGameOver) return;
+                if (isGameOver || !canAnswer) return;
 
                 currentY += fallSpeed;
-                document.getElementById('questionText').style.top = currentY + "px";
-                
-                if (currentY >= 310) {
-                    clearInterval(gameInterval);
-                    isGameOver = true;
-                    
-                    updateHighscore();
-                    comboCount = 0;
-                    multiplier = 1;
-                    document.getElementById('comboText').innerText = "";
+                questionText.style.top = currentY + "px";
 
-                    document.getElementById('gameCard').style.borderColor = "#ff0055";
-                    document.getElementById('gameCard').style.boxShadow = "0 0 30px rgba(255, 0, 85, 0.8)";
-                    
-                    alert("Game Over!\nDeine Punkte: " + score);
-                    
-                    score = 0;
-                    fallSpeed = startSpeed; 
-                    document.getElementById('scoreText').innerText = score;
-                    isGameOver = false;
-                    canAnswer = true;
-                    document.getElementById('gameCard').style.borderColor = "#00d2ff";
-                    document.getElementById('gameCard').style.boxShadow = "0 0 20px rgba(0, 210, 255, 0.3)";
-                    
-                    generateQuestion();
-                    startFalling();
+                const maxY = gameArea.clientHeight - questionText.offsetHeight;
+
+                if (currentY >= maxY) {
+                    endGame();
                 }
             }, 30);
         }
 
-        document.getElementById('userInput').addEventListener('input', () => {
-            if (!canAnswer) return;
+        function endGame() {
+            if (isGameOver) return;
 
-            let userInputField = document.getElementById('userInput');
-            let userAnswer = parseInt(userInputField.value);
-            let card = document.getElementById('gameCard');
+            clearInterval(gameInterval);
+            gameInterval = null;
 
-            if (!isNaN(userAnswer) && userAnswer === correctAnswer) {
-                canAnswer = false;
-                userInputField.value = "";
+            isGameOver = true;
+            canAnswer = false;
 
-                let now = Date.now();
-                let timeTaken = (now - lastSolveTime) / 1000;
-                lastSolveTime = now;
+            updateHighscore();
 
-                if (timeTaken <= 1.80) {
-                    comboCount++;
-                    if (comboCount >= 6) {
-                        multiplier = 3;
-                        document.getElementById('comboText').innerText = "🔥 Mega Combo x3! 🔥";
-                    } else if (comboCount >= 3) {
-                        multiplier = 2;
-                        document.getElementById('comboText').innerText = "⚡ Combo x2! ⚡";
-                    }
+            userInput.disabled = true;
+            finalScore.textContent = score;
+            gameOverBox.style.display = "block";
+
+            comboCount = 0;
+            multiplier = 1;
+            comboText.textContent = "";
+
+            gameCard.style.borderColor = "#ff0055";
+            gameCard.style.boxShadow =
+                "0 0 30px rgba(255, 0, 85, 0.8)";
+        }
+
+        function updateSpeed() {
+            if (score < 15) {
+                fallSpeed = startSpeed + (score * 0.03);
+
+            } else if (score < 40) {
+                fallSpeed = startSpeed + 0.45 + ((score - 15) * 0.05);
+
+            } else {
+                fallSpeed = startSpeed + 1.7 + ((score - 40) * 0.1);
+            }
+
+            // Verhindert eine zu hohe Spielgeschwindigkeit.
+            fallSpeed = Math.min(fallSpeed, 8);
+        }
+
+        function checkAnswer() {
+            if (!canAnswer || isGameOver) return;
+
+            const userAnswer = Number(userInput.value);
+
+            if (
+                userInput.value.trim() === "" ||
+                !Number.isFinite(userAnswer) ||
+                userAnswer !== correctAnswer
+            ) {
+                return;
+            }
+
+            canAnswer = false;
+            userInput.value = "";
+
+            const now = Date.now();
+            const timeTaken = (now - lastSolveTime) / 1000;
+
+            lastSolveTime = now;
+
+            if (timeTaken <= 1.8) {
+                comboCount++;
+
+                if (comboCount >= 6) {
+                    multiplier = 3;
+                    comboText.textContent = "🔥 Mega Combo x3! 🔥";
+
+                } else if (comboCount >= 3) {
+                    multiplier = 2;
+                    comboText.textContent = "⚡ Combo x2! ⚡";
+
                 } else {
-                    comboCount = 1; 
                     multiplier = 1;
-                    document.getElementById('comboText').innerText = "";
+                    comboText.textContent = "";
                 }
 
-                score += multiplier;
-                document.getElementById('scoreText').innerText = score;
-                updateHighscore();
+            } else {
+                comboCount = 1;
+                multiplier = 1;
+                comboText.textContent = "";
+            }
 
-                if (score < 15) {
-                    fallSpeed = startSpeed + (score * 0.03); 
-                } else if (score < 40) {
-                    fallSpeed = startSpeed + 0.45 + ((score - 15) * 0.05); 
-                } else {
-                    fallSpeed = startSpeed + 1.7 + ((score - 40) * 0.1); 
-                }
+            score += multiplier;
+            scoreText.textContent = score;
 
-                card.style.borderColor = "#00ffcc";
-                card.style.boxShadow = "0 0 30px rgba(0, 255, 204, 0.8)";
-                
-                clearInterval(gameInterval);
-                
-                setTimeout(() => {
-                    card.style.borderColor = "#00d2ff";
-                    card.style.boxShadow = "0 0 20px rgba(0, 210, 255, 0.3)";
-                    generateQuestion();
-                    startFalling();
-                    canAnswer = true;
-                }, 200);
+            updateHighscore();
+            updateSpeed();
+
+            gameCard.style.borderColor = "#00ffcc";
+            gameCard.style.boxShadow =
+                "0 0 30px rgba(0, 255, 204, 0.8)";
+
+            clearInterval(gameInterval);
+            gameInterval = null;
+
+            setTimeout(() => {
+                if (isGameOver) return;
+
+                gameCard.style.borderColor = "#00d2ff";
+                gameCard.style.boxShadow =
+                    "0 0 20px rgba(0, 210, 255, 0.3)";
+
+                generateQuestion();
+
+                canAnswer = true;
+                startFalling();
+
+            }, 200);
+        }
+
+        function restartGame() {
+            clearInterval(gameInterval);
+
+            score = 0;
+            fallSpeed = startSpeed;
+            currentY = 0;
+
+            comboCount = 0;
+            multiplier = 1;
+            lastSolveTime = Date.now();
+
+            isGameOver = false;
+            canAnswer = true;
+
+            scoreText.textContent = "0";
+            comboText.textContent = "";
+
+            gameOverBox.style.display = "none";
+            userInput.disabled = false;
+
+            gameCard.style.borderColor = "#00d2ff";
+            gameCard.style.boxShadow =
+                "0 0 20px rgba(0, 210, 255, 0.3)";
+
+            generateQuestion();
+            startFalling();
+        }
+
+        userInput.addEventListener("input", checkAnswer);
+
+        userInput.addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                checkAnswer();
             }
         });
 
+        restartBtn.addEventListener("click", restartGame);
+
+        // Spiel initialisieren.
         loadHighscore();
         lastSolveTime = Date.now();
         generateQuestion();
+        userInput.disabled = false;
         startFalling();
     </script>
+
 </body>
 </html>
