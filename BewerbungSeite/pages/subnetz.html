@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -9,9 +8,7 @@
     <title>Subnetz-Rechner – Jens Overkämping</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
@@ -42,9 +39,7 @@
             margin-top: 0;
         }
 
-        h1 {
-            font-size: 28px;
-        }
+        h1 { font-size: 28px; }
 
         h2 {
             font-size: 20px;
@@ -111,9 +106,7 @@
             transition: background 0.3s;
         }
 
-        .calc-btn:hover {
-            background: #00ffcc;
-        }
+        .calc-btn:hover { background: #00ffcc; }
 
         .result-box {
             margin-top: 25px;
@@ -124,9 +117,7 @@
             display: none;
         }
 
-        .result-box.visible {
-            display: block;
-        }
+        .result-box.visible { display: block; }
 
         .result-item {
             margin-bottom: 14px;
@@ -135,13 +126,9 @@
             overflow-wrap: anywhere;
         }
 
-        .result-item:last-child {
-            margin-bottom: 0;
-        }
+        .result-item:last-child { margin-bottom: 0; }
 
-        .result-item strong {
-            color: #00ffcc;
-        }
+        .result-item strong { color: #00ffcc; }
 
         .notice {
             margin-top: 20px;
@@ -150,6 +137,7 @@
             background: rgba(0, 210, 255, 0.08);
             border: 1px solid rgba(0, 210, 255, 0.3);
             font-size: 14px;
+            line-height: 1.6;
         }
 
         .error {
@@ -160,11 +148,10 @@
             background: rgba(127, 29, 29, 0.35);
             border: 1px solid #ef4444;
             border-radius: 5px;
+            line-height: 1.5;
         }
 
-        .error.visible {
-            display: block;
-        }
+        .error.visible { display: block; }
 
         .class-list {
             padding-left: 20px;
@@ -180,17 +167,9 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            .container {
-                padding: 22px 18px;
-            }
-
-            h1 {
-                font-size: 23px;
-            }
+            body { padding: 20px 12px; }
+            .container { padding: 22px 18px; }
+            h1 { font-size: 23px; }
         }
     </style>
 </head>
@@ -199,7 +178,9 @@
 
     <main class="container">
 
-        <a href="../index.html" class="back-btn">← Zurück zum Profil</a>
+        <a href="../../index.html" class="back-btn">
+            ← Zurück zum Profil
+        </a>
 
         <h1>🧮 IPv4-Netzwerkklassen-Analyzer</h1>
 
@@ -335,15 +316,24 @@
 
             const parts = ipStr.split(".").map(Number);
 
-            if (parts.some(part => part < 0 || part > 255)) {
+            if (
+                parts.some(part =>
+                    !Number.isInteger(part) ||
+                    part < 0 ||
+                    part > 255
+                )
+            ) {
                 showError(
-                    "Jeder Zahlenblock einer IPv4-Adresse muss zwischen 0 und 255 liegen."
+                    "Jeder Zahlenblock einer IPv4-Adresse muss " +
+                    "zwischen 0 und 255 liegen."
                 );
                 return;
             }
 
             const first = parts[0];
             const second = parts[1];
+            const third = parts[2];
+            const fourth = parts[3];
 
             let netClass = "";
             let subMask = "Nicht definiert";
@@ -351,11 +341,19 @@
             let useType = "";
             let special = "Keine besondere Zuordnung erkannt.";
 
-            // Nicht spezifizierte Adresse
+            // Nicht spezifizierter Adressbereich
             if (first === 0) {
                 netClass = "Reservierter Bereich (0.0.0.0/8)";
                 useType = "Für spezielle Zwecke reserviert.";
-                special = "0.0.0.0 wird beispielsweise als nicht spezifizierte Adresse verwendet.";
+                special =
+                    "0.0.0.0 wird beispielsweise als nicht spezifizierte Adresse verwendet.";
+
+            // Loopback-Bereich
+            } else if (first === 127) {
+                netClass = "Reservierter Bereich (127.0.0.0/8)";
+                useType = "Loopback-Kommunikation auf dem eigenen Gerät.";
+                special =
+                    "127.0.0.1 ist die bekannte Loopback-Adresse (localhost).";
 
             // Klasse A
             } else if (first >= 1 && first <= 126) {
@@ -366,10 +364,6 @@
 
                 if (first === 10) {
                     special = "Privater Adressbereich (10.0.0.0/8).";
-                } else if (first === 127) {
-                    special = "Loopback-Bereich (127.0.0.0/8).";
-                } else {
-                    special = "Keine der bekannten privaten Standardzuordnungen.";
                 }
 
             // Klasse B
@@ -392,54 +386,69 @@
 
                 if (first === 192 && second === 168) {
                     special = "Privater Adressbereich (192.168.0.0/16).";
-                } else if (first === 192 && second === 0 && parts[2] === 2) {
-                    special = "Dokumentationsbereich (192.0.2.0/24).";
-                } else if (first === 198 && (second === 18 || second === 19)) {
-                    special = "Reservierter Bereich für Benchmark-Tests (198.18.0.0/15).";
-                } else if (first === 203 && second === 0 && parts[2] === 113) {
-                    special = "Dokumentationsbereich (203.0.113.0/24).";
                 }
 
             // Klasse D
             } else if (first >= 224 && first <= 239) {
                 netClass = "Klasse D (Multicast)";
-                useType = "Multicast-Kommunikation, beispielsweise für Gruppenübertragungen.";
-                special = "Keine normale Host-Adresse und keine Standard-Subnetzmaske.";
+                useType =
+                    "Multicast-Kommunikation, beispielsweise für Gruppenübertragungen.";
+                special =
+                    "Keine normale Host-Adresse und keine Standard-Subnetzmaske.";
 
             // Klasse E
             } else {
                 netClass = "Klasse E (reserviert)";
                 useType = "Reservierter Adressbereich.";
-                special = "Nicht für die normale Vergabe von Host-Adressen vorgesehen.";
+                special =
+                    "Nicht für die normale Vergabe von Host-Adressen vorgesehen.";
             }
 
             // Weitere besondere Adressbereiche
+
             if (first === 169 && second === 254) {
                 special = "Link-Local / APIPA (169.254.0.0/16).";
             }
 
             if (first === 100 && second >= 64 && second <= 127) {
-                special = "Shared Address Space für Carrier-Grade NAT (100.64.0.0/10).";
+                special =
+                    "Shared Address Space für Carrier-Grade NAT (100.64.0.0/10).";
             }
 
-            if (first === 192 && second === 0 && parts[2] === 0) {
+            if (first === 192 && second === 0 && third === 0) {
                 special = "IETF-Protokollzuweisungen (192.0.0.0/24).";
             }
 
-            if (first === 192 && second === 0 && parts[2] === 2) {
+            if (first === 192 && second === 0 && third === 2) {
                 special = "Dokumentationsbereich (192.0.2.0/24).";
             }
 
-            if (first === 198 && (second === 51 && parts[2] === 100)) {
+            if (first === 198 && second === 18) {
+                special =
+                    "Reservierter Bereich für Benchmark-Tests (198.18.0.0/15).";
+            }
+
+            if (first === 198 && second === 19) {
+                special =
+                    "Reservierter Bereich für Benchmark-Tests (198.18.0.0/15).";
+            }
+
+            if (first === 198 && second === 51 && third === 100) {
                 special = "Dokumentationsbereich (198.51.100.0/24).";
             }
 
-            if (first === 203 && second === 0 && parts[2] === 113) {
+            if (first === 203 && second === 0 && third === 113) {
                 special = "Dokumentationsbereich (203.0.113.0/24).";
             }
 
-            if (first === 255 && second === 255 && parts[2] === 255 && parts[3] === 255) {
-                special = "Begrenzte Broadcast-Adresse (255.255.255.255).";
+            if (
+                first === 255 &&
+                second === 255 &&
+                third === 255 &&
+                fourth === 255
+            ) {
+                special =
+                    "Begrenzte Broadcast-Adresse (255.255.255.255).";
             }
 
             document.getElementById("resIP").textContent = ipStr;
