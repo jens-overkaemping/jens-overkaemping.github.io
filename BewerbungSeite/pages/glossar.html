@@ -1,11 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IT-Fachglossar mit wichtigen Begriffen aus der Systemintegration und Unternehmens-IT.">
     <title>IT-Glossar – Jens Overkämping</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #030712 0%, #0b1528 50%, #030712 100%);
@@ -16,7 +23,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
+
         .container {
             width: 100%;
             max-width: 800px;
@@ -26,12 +35,32 @@
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-            box-sizing: border-box;
         }
-        h1, h2 { color: #00d2ff; margin-top: 0; }
-        h2 { margin-top: 30px; border-bottom: 1px solid rgba(0, 210, 255, 0.2); padding-bottom: 5px; }
-        p { line-height: 1.6; color: #e2e8f0; }
-        strong { color: #00ffcc; }
+
+        h1, h2 {
+            color: #00d2ff;
+            margin-top: 0;
+        }
+
+        h1 {
+            line-height: 1.3;
+        }
+
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            padding-bottom: 8px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        strong {
+            color: #00ffcc;
+        }
+
         .back-btn {
             display: inline-block;
             margin-bottom: 20px;
@@ -44,28 +73,203 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .back-btn:hover { background-color: #00ffcc; color: #030712; box-shadow: 0 0 10px rgba(0, 255, 204, 0.4); }
+
+        .back-btn:hover {
+            background-color: #00ffcc;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+        }
+
+        .intro {
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <a href="/unterlagen-jens-9372/index.html" class="back-btn">← Zurück zum Profil</a>
-        <h1>📖 Systemintegration Fachglossar</h1>
-        <p>Zusammenfassung wichtiger Kernbegriffe moderner Unternehmensinfrastrukturen im Rahmen des Selbststudiums.</p>
+    <main class="container">
+
+        <a href="../index.html" class="back-btn">
+            ← Zurück zum Profil
+        </a>
+
+        <h1>📖 Systemintegration – Fachglossar</h1>
+
+        <p class="intro">
+            In diesem Glossar werden wichtige Fachbegriffe aus der
+            Systemintegration und modernen IT-Infrastrukturen erklärt.
+            Die Zusammenstellung dient als Übersicht für mein Selbststudium
+            und zur Vertiefung meiner IT-Kenntnisse.
+        </p>
 
         <h2>Active Directory (AD)</h2>
-        <p>Der zentrale Verzeichnisdienst von Microsoft Windows Server Systemen. Es ermöglicht Administratoren, die gesamte Organisation von Benutzern, Computern, Berechtigungen und Gruppenrichtlinien an einem einzigen, zentralen Punkt sicher zu verwalten.</p>
+        <p>
+            Active Directory ist ein Verzeichnisdienst von Microsoft,
+            der in Windows-Server-Umgebungen eingesetzt wird. Administratoren
+            können damit Benutzer, Computer, Gruppen und Berechtigungen
+            zentral verwalten. Über Gruppenrichtlinien (Group Policy) lassen
+            sich außerdem Einstellungen und Sicherheitsvorgaben für Benutzer
+            und Computer festlegen.
+        </p>
+
+        <h2>DNS (Domain Name System)</h2>
+        <p>
+            DNS übersetzt Domainnamen wie beispielsweise
+            <strong>www.example.com</strong> in IP-Adressen.
+            Dadurch müssen Benutzer keine numerischen IP-Adressen kennen,
+            um Webseiten und andere Netzwerkdienste aufzurufen.
+            DNS ist ein grundlegender Bestandteil moderner Netzwerke.
+        </p>
+
+        <h2>DHCP (Dynamic Host Configuration Protocol)</h2>
+        <p>
+            DHCP ermöglicht die automatische Vergabe von Netzwerkeinstellungen
+            an Geräte. Dazu gehören beispielsweise IP-Adresse, Subnetzmaske,
+            Standardgateway und DNS-Server. Dadurch müssen diese Einstellungen
+            nicht auf jedem Gerät manuell vorgenommen werden.
+        </p>
 
         <h2>Virtualisierung (Hyper-V / Proxmox)</h2>
-        <p>Das Aufteilen physischer Hardware-Ressourcen eines einzelnen Servers in mehrere voneinander isolierte, virtuelle Maschinen (VMs). Dies sorgt für maximale Hardware-Auslastung, enorme Stromersparnis und schnelle Datensicherungen.</p>
+        <p>
+            Bei der Virtualisierung werden die Ressourcen eines physischen
+            Computers oder Servers auf mehrere virtuelle Maschinen (VMs)
+            aufgeteilt. Jede virtuelle Maschine kann ein eigenes Betriebssystem
+            und eigene Anwendungen ausführen. Hyper-V von Microsoft und
+            Proxmox VE sind Beispiele für Virtualisierungsplattformen.
+        </p>
 
         <h2>RAID-Systeme (Redundant Array of Independent Disks)</h2>
-        <p>Der Zusammenschluss mehrerer physischer Festplatten zu einem logischen Laufwerk. **RAID 1** spiegelt Daten für Ausfallsicherheit, während **RAID 5** Performance und Datenredundanz durch Paritätsdaten kombiniert.</p>
+        <p>
+            RAID bezeichnet den Zusammenschluss mehrerer Festplatten oder
+            SSDs zu einem logischen Speichersystem. Je nach RAID-Level stehen
+            unterschiedliche Eigenschaften im Vordergrund:
+        </p>
+        <p>
+            <strong>RAID 0:</strong> Daten werden auf mehrere Laufwerke verteilt.
+            Das kann die Leistung erhöhen, bietet aber keine Ausfallsicherheit.
+            Fällt ein Laufwerk aus, können alle Daten des Verbunds verloren gehen.
+        </p>
+        <p>
+            <strong>RAID 1:</strong> Daten werden auf mindestens zwei Laufwerken
+            gespiegelt. Fällt ein Laufwerk aus, sind die Daten normalerweise
+            weiterhin auf dem anderen Laufwerk verfügbar.
+        </p>
+        <p>
+            <strong>RAID 5:</strong> Daten und Paritätsinformationen werden
+            auf mindestens drei Laufwerken verteilt. Der Ausfall eines
+            Laufwerks kann ausgeglichen werden.
+        </p>
+        <p>
+            RAID ersetzt keine regelmäßige Datensicherung.
+        </p>
 
-        <h2>3-2-1 Backup-Regel</h2>
-        <p>Ein essenzielles Datensicherungskonzept: Es sollten mindestens **3 Kopien** der Daten existieren, auf **2 unterschiedlichen Medien** (z.B. NAS und externe Festplatte), wobei **1 Kopie komplett außerhalb** des Betriebs (z. B. Cloud-Backup oder Schließfach) gelagert wird.</p>
-    </div>
+        <h2>3-2-1-Backup-Regel</h2>
+        <p>
+            Die 3-2-1-Regel ist ein bewährtes Konzept zur Datensicherung.
+            Sie empfiehlt:
+        </p>
+        <p>
+            <strong>3 Kopien:</strong> Mindestens drei Versionen der Daten
+            sollten vorhanden sein – das Original und zwei Sicherungskopien.
+        </p>
+        <p>
+            <strong>2 Medien:</strong> Die Kopien sollten auf mindestens
+            zwei unterschiedlichen Speichermedien oder Speichersystemen
+            liegen.
+        </p>
+        <p>
+            <strong>1 externer Speicherort:</strong> Mindestens eine Kopie
+            sollte räumlich getrennt aufbewahrt werden, beispielsweise
+            in einem anderen Gebäude oder in einem geeigneten Cloud-Speicher.
+        </p>
+
+        <h2>Firewall</h2>
+        <p>
+            Eine Firewall überwacht und kontrolliert den ein- und ausgehenden
+            Netzwerkverkehr anhand festgelegter Regeln. Sie kann beispielsweise
+            bestimmte Verbindungen erlauben oder blockieren und so dazu
+            beitragen, Netzwerke und Systeme vor unerwünschten Zugriffen
+            zu schützen.
+        </p>
+
+        <h2>VPN (Virtual Private Network)</h2>
+        <p>
+            Ein VPN ermöglicht den Aufbau einer geschützten Verbindung
+            über ein öffentliches oder fremdes Netzwerk. Unternehmen
+            verwenden VPN-Verbindungen beispielsweise, damit Mitarbeiter
+            von außerhalb sicher auf interne Systeme und Ressourcen
+            zugreifen können.
+        </p>
+
+        <h2>TCP und UDP</h2>
+        <p>
+            TCP und UDP sind Transportprotokolle, die Daten zwischen
+            Anwendungen über Netzwerke übertragen.
+        </p>
+        <p>
+            <strong>TCP:</strong> Bietet eine zuverlässige, verbindungsorientierte
+            Übertragung. Die korrekte Reihenfolge und der Empfang der Daten
+            werden überwacht.
+        </p>
+        <p>
+            <strong>UDP:</strong> Überträgt Daten ohne vorherigen Verbindungsaufbau.
+            Es hat weniger Verwaltungsaufwand und wird beispielsweise bei
+            DNS-Anfragen und Echtzeitanwendungen eingesetzt.
+        </p>
+
+        <h2>IP-Adresse</h2>
+        <p>
+            Eine IP-Adresse identifiziert ein Gerät beziehungsweise eine
+            Netzwerkschnittstelle innerhalb eines IP-Netzwerks. Man
+            unterscheidet unter anderem zwischen IPv4 und IPv6.
+            IPv4-Adressen bestehen aus vier Zahlenblöcken, während
+            IPv6 einen deutlich größeren Adressraum bietet.
+        </p>
+
+        <h2>Subnetzmaske</h2>
+        <p>
+            Eine Subnetzmaske legt bei IPv4 fest, welcher Teil einer
+            IP-Adresse zum Netzwerk und welcher Teil zum jeweiligen
+            Gerät gehört. Sie hilft dabei, Netzwerke in kleinere
+            Teilnetze aufzuteilen und die Adressvergabe zu strukturieren.
+        </p>
+
+        <h2>Standardgateway</h2>
+        <p>
+            Das Standardgateway ist normalerweise ein Router, über den
+            ein Gerät Daten an andere Netzwerke weiterleitet, wenn das
+            Ziel nicht im eigenen lokalen Netzwerk liegt. In Heimnetzwerken
+            übernimmt häufig der Router diese Aufgabe.
+        </p>
+
+        <h2>NAS (Network Attached Storage)</h2>
+        <p>
+            Ein NAS ist ein Speichergerät, das über das Netzwerk erreichbar
+            ist. Es kann beispielsweise zur zentralen Speicherung von
+            Dateien, zur gemeinsamen Nutzung von Dokumenten und für
+            Datensicherungen eingesetzt werden.
+        </p>
+
+        <h2>Proxmox VE</h2>
+        <p>
+            Proxmox Virtual Environment ist eine Open-Source-Plattform
+            zur Verwaltung von virtuellen Maschinen und Linux-Containern.
+            Sie bietet eine webbasierte Verwaltungsoberfläche und wird
+            häufig für Homelabs und Serverumgebungen eingesetzt.
+        </p>
+
+    </main>
 
 </body>
 </html>
