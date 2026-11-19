@@ -1,11 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hardwarekonfiguration eines energieeffizienten Homelab-Servers zur Virtualisierung.">
     <title>Hardware-Guide – Jens Overkämping</title>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #030712 0%, #0b1528 50%, #030712 100%);
@@ -16,7 +23,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
+
         .container {
             width: 100%;
             max-width: 800px;
@@ -26,12 +35,35 @@
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
-            box-sizing: border-box;
         }
-        h1, h2 { color: #00d2ff; margin-top: 0; }
-        .component-box { background: rgba(3, 7, 18, 0.5); padding: 15px; margin: 15px 0; border-left: 3px solid #00ffcc; border-radius: 4px; }
-        .component-box strong { color: #00ffcc; font-size: 18px; }
-        p { line-height: 1.6; }
+
+        h1, h2 {
+            color: #00d2ff;
+            margin-top: 0;
+        }
+
+        h1 {
+            line-height: 1.3;
+        }
+
+        .component-box {
+            background: rgba(3, 7, 18, 0.5);
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 3px solid #00ffcc;
+            border-radius: 4px;
+        }
+
+        .component-box strong {
+            color: #00ffcc;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
         .back-btn {
             display: inline-block;
             margin-bottom: 20px;
@@ -44,31 +76,172 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        .back-btn:hover { background-color: #00ffcc; color: #030712; box-shadow: 0 0 10px rgba(0, 255, 204, 0.4); }
+
+        .back-btn:hover {
+            background-color: #00ffcc;
+            color: #030712;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.4);
+        }
+
+        .note {
+            background: rgba(0, 210, 255, 0.08);
+            border-left: 3px solid #00d2ff;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .component-box strong {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <a href="/unterlagen-jens-9372/index.html" class="back-btn">← Zurück zum Profil</a>
+    <main class="container">
+
+        <a href="../index.html" class="back-btn">
+            ← Zurück zum Profil
+        </a>
+
         <h1>🖥️ Homelab-Server Hardwarekonfiguration</h1>
-        <p>Analyse und Auswahl optimaler Hardwarekomponenten für den Aufbau eines energieeffizienten Virtualisierungs-Heimservers.</p>
+
+        <p>
+            In diesem Projekt beschäftige ich mich mit der Analyse und Auswahl
+            geeigneter Hardwarekomponenten für den Aufbau eines energieeffizienten
+            Virtualisierungs-Heimservers. Ziel ist es, mehrere Dienste und virtuelle
+            Maschinen auf einem zentralen System zu betreiben.
+        </p>
 
         <div class="component-box">
-            <strong>Prozessor (CPU): Intel Core i3-12100 oder AMD Ryzen 5 4600G</strong><br>
-            <p>Für kleine Virtualisierungsserver (z.B. mit Proxmox VE) sind dedizierte Server-CPUs oft zu teuer und stromhungrig. Moderne Desktop-Prozessoren bieten genug Kerne und Threads für mehrere Linux-Container bei extrem geringem Stromverbrauch im Leerlauf.</p>
+            <strong>
+                Prozessor (CPU): Intel Core i3-12100 oder AMD Ryzen 5 4600G
+            </strong>
+
+            <p>
+                Für einen kleinen Virtualisierungsserver, beispielsweise mit
+                Proxmox VE, können moderne Desktop-Prozessoren eine kostengünstige
+                Alternative zu speziellen Server-CPUs sein. Beide Prozessoren
+                bieten mehrere Kerne und Threads und eignen sich für kleinere
+                Homelab-Umgebungen mit Linux-Containern und virtuellen Maschinen.
+            </p>
+
+            <p>
+                Bei der Auswahl spielen neben der Rechenleistung auch der
+                Stromverbrauch im Leerlauf, die Anzahl der benötigten Anschlüsse
+                und die Unterstützung von Virtualisierungsfunktionen eine Rolle.
+            </p>
         </div>
 
         <div class="component-box">
-            <strong>Arbeitsspeicher (RAM): 32 GB DDR4 (Non-ECC)</strong><br>
-            <p>Bei der Virtualisierung ist der Arbeitsspeicher fast immer der Flaschenhals, nicht die CPU. 32 Gigabyte bieten ausreichend Kapazität, um parallel einen Domänencontroller, einen Dateiserver und Testumgebungen zu betreiben.</p>
+            <strong>
+                Arbeitsspeicher (RAM): 32 GB DDR4 (Non-ECC)
+            </strong>
+
+            <p>
+                Der Arbeitsspeicher ist bei der Virtualisierung ein wichtiger
+                Faktor. Jede virtuelle Maschine und jeder Container benötigt
+                einen Teil des verfügbaren RAMs. 32 GB bieten für viele kleinere
+                Homelab-Szenarien ausreichend Kapazität, um beispielsweise einen
+                Domänencontroller, einen Dateiserver und mehrere Testsysteme
+                parallel zu betreiben.
+            </p>
+
+            <p>
+                Non-ECC-Arbeitsspeicher ist für ein kostengünstiges Homelab
+                häufig ausreichend. ECC-RAM kann dagegen Speicherfehler erkennen
+                und teilweise korrigieren und ist besonders bei höheren
+                Anforderungen an die Datenintegrität interessant.
+            </p>
         </div>
 
         <div class="component-box">
-            <strong>Speichermedien: 2x 1TB NVMe SSDs im Software-RAID 1</strong><br>
-            <p>SSDs beschleunigen das Starten virtueller Maschinen enorm. Durch den Einsatz von zwei baugleichen SSDs im RAID-1-Verbund werden alle Systemdaten permanent gespiegelt. Fällt eine SSD aus, läuft der Server ohne Datenverlust weiter.</p>
+            <strong>
+                Speichermedien: 2 × 1 TB NVMe-SSDs im RAID-1-Verbund
+            </strong>
+
+            <p>
+                NVMe-SSDs bieten hohe Datenübertragungsraten und kurze
+                Zugriffszeiten. Dadurch können virtuelle Maschinen und
+                Anwendungen schnell gestartet und Daten zügig verarbeitet werden.
+            </p>
+
+            <p>
+                Bei einem RAID-1-Verbund werden die Daten auf zwei Laufwerken
+                gespiegelt. Fällt eine der beiden SSDs aus, sind die Daten
+                normalerweise weiterhin auf der anderen SSD verfügbar.
+                Der Server kann dadurch nach entsprechender Konfiguration
+                weiterbetrieben werden.
+            </p>
+
+            <p>
+                Zu beachten ist, dass RAID 1 kein Backup ersetzt. Bei
+                versehentlichem Löschen, Schadsoftware oder anderen
+                Datenbeschädigungen können auch die gespiegelten Daten
+                betroffen sein. Regelmäßige externe Backups bleiben deshalb
+                notwendig.
+            </p>
         </div>
-    </div>
+
+        <div class="component-box">
+            <strong>
+                Netzwerk: Gigabit-Ethernet oder schneller
+            </strong>
+
+            <p>
+                Eine zuverlässige Netzwerkverbindung ist für einen
+                Virtualisierungsserver wichtig. Über das Netzwerk greifen
+                andere Geräte auf Dienste, Freigaben und virtuelle Maschinen zu.
+                Eine Gigabit-Ethernet-Schnittstelle bietet für viele kleinere
+                Homelab-Umgebungen eine ausreichende Grundlage.
+            </p>
+
+            <p>
+                Bei größeren Datenübertragungen oder mehreren gleichzeitig
+                genutzten Diensten kann eine schnellere Verbindung mit
+                2,5 oder 10 Gigabit Ethernet sinnvoll sein.
+            </p>
+        </div>
+
+        <div class="component-box">
+            <strong>
+                Netzteil und Kühlung: Effizient und leise
+            </strong>
+
+            <p>
+                Da ein Homelab-Server häufig rund um die Uhr läuft, sollten
+                Netzteil und Kühlung möglichst effizient und zuverlässig sein.
+                Ein passend dimensioniertes Netzteil und eine gute Gehäusebelüftung
+                helfen dabei, die Temperaturen und den Energieverbrauch
+                im Rahmen zu halten.
+            </p>
+        </div>
+
+        <div class="note">
+            <strong>💡 Fazit:</strong>
+            <p>
+                Die vorgestellte Hardware bietet eine mögliche Grundlage für
+                einen kleinen Homelab-Server. Die Kombination aus einem
+                energieeffizienten Prozessor, ausreichend Arbeitsspeicher,
+                schnellen SSDs und einer zuverlässigen Netzwerkanbindung
+                ermöglicht den Betrieb verschiedener Dienste und virtueller
+                Maschinen. Die endgültige Auswahl hängt vom Einsatzzweck,
+                Budget und den benötigten Erweiterungsmöglichkeiten ab.
+            </p>
+        </div>
+
+    </main>
 
 </body>
 </html>
