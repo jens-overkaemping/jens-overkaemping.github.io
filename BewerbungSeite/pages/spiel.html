@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -9,9 +8,7 @@
     <title>Fallende Mathe-Challenge 🚀</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: Arial, sans-serif;
@@ -99,6 +96,11 @@
             box-shadow: 0 0 12px rgba(0, 210, 255, 0.5);
         }
 
+        .game-input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .stats-container {
             display: flex;
             justify-content: space-around;
@@ -109,13 +111,8 @@
             flex-wrap: wrap;
         }
 
-        .score-display {
-            color: #00ffcc;
-        }
-
-        .highscore-display {
-            color: #ffaa00;
-        }
+        .score-display { color: #00ffcc; }
+        .highscore-display { color: #ffaa00; }
 
         .back-link {
             display: block;
@@ -125,18 +122,14 @@
             font-size: 14px;
         }
 
-        .back-link:hover {
-            color: #00d2ff;
-        }
+        .back-link:hover { color: #00d2ff; }
 
         .game-over {
             display: none;
             margin-top: 20px;
         }
 
-        .game-over h2 {
-            color: #ff0055;
-        }
+        .game-over h2 { color: #ff0055; }
 
         .restart-btn {
             background: transparent;
@@ -156,29 +149,12 @@
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
-
-            .game-container {
-                padding: 18px;
-            }
-
-            h1 {
-                font-size: 21px;
-            }
-
-            .box-container {
-                height: 320px;
-            }
-
-            .falling-question {
-                font-size: 25px;
-            }
-
-            .stats-container {
-                font-size: 16px;
-            }
+            body { padding: 12px; }
+            .game-container { padding: 18px; }
+            h1 { font-size: 21px; }
+            .box-container { height: 320px; }
+            .falling-question { font-size: 25px; }
+            .stats-container { font-size: 16px; }
         }
     </style>
 </head>
@@ -204,6 +180,7 @@
             placeholder="?"
             aria-label="Ergebnis eingeben"
             autocomplete="off"
+            inputmode="numeric"
             disabled
         >
 
@@ -225,7 +202,7 @@
             </button>
         </div>
 
-        <a href="../index.html" class="back-link">
+        <a href="../../index.html" class="back-link">
             ← Zurück zur Startseite
         </a>
 
@@ -244,6 +221,7 @@
         let fallSpeed = startSpeed;
 
         let gameInterval = null;
+        let answerTimeout = null;
         let isGameOver = false;
 
         let comboCount = 0;
@@ -264,7 +242,8 @@
 
         function loadHighscore() {
             try {
-                const savedHighscore = localStorage.getItem("mathDropHighscore");
+                const savedHighscore =
+                    localStorage.getItem("mathDropHighscore");
 
                 if (savedHighscore !== null) {
                     const parsed = Number.parseInt(savedHighscore, 10);
@@ -326,7 +305,6 @@
             questionText.style.top = "0px";
 
             userInput.value = "";
-            userInput.focus();
         }
 
         function startFalling() {
@@ -338,7 +316,8 @@
                 currentY += fallSpeed;
                 questionText.style.top = currentY + "px";
 
-                const maxY = gameArea.clientHeight - questionText.offsetHeight;
+                const maxY =
+                    gameArea.clientHeight - questionText.offsetHeight;
 
                 if (currentY >= maxY) {
                     endGame();
@@ -351,6 +330,9 @@
 
             clearInterval(gameInterval);
             gameInterval = null;
+
+            clearTimeout(answerTimeout);
+            answerTimeout = null;
 
             isGameOver = true;
             canAnswer = false;
@@ -441,7 +423,9 @@
             clearInterval(gameInterval);
             gameInterval = null;
 
-            setTimeout(() => {
+            answerTimeout = setTimeout(() => {
+                answerTimeout = null;
+
                 if (isGameOver) return;
 
                 gameCard.style.borderColor = "#00d2ff";
@@ -452,12 +436,17 @@
 
                 canAnswer = true;
                 startFalling();
+                userInput.focus();
 
             }, 200);
         }
 
         function restartGame() {
             clearInterval(gameInterval);
+            clearTimeout(answerTimeout);
+
+            gameInterval = null;
+            answerTimeout = null;
 
             score = 0;
             fallSpeed = startSpeed;
@@ -482,6 +471,7 @@
 
             generateQuestion();
             startFalling();
+            userInput.focus();
         }
 
         userInput.addEventListener("input", checkAnswer);
@@ -500,6 +490,7 @@
         generateQuestion();
         userInput.disabled = false;
         startFalling();
+        userInput.focus();
     </script>
 
 </body>
