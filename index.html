@@ -23,7 +23,6 @@
             margin: 0;
             padding: 40px 20px;
             min-height: 100vh;
-
             font-family: Arial, sans-serif;
             background: linear-gradient(
                 135deg,
@@ -76,32 +75,24 @@
             color: #00ffcc;
         }
 
-        /* PROFILBEREICH */
-
         .main-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 35px;
-
             width: 100%;
             max-width: 950px;
-
             margin: 0 auto 25px;
         }
 
         .profile-card {
             flex: 1;
-
             background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-
             border: 2px solid #00d2ff;
             border-radius: 15px;
-
             padding: 30px;
-
             box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
         }
 
@@ -115,19 +106,13 @@
         .profile-pic {
             width: 220px;
             height: 220px;
-
             object-fit: cover;
             object-position: top;
-
             border-radius: 50%;
             border: 3px solid #00ffcc;
-
             box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
-
             flex-shrink: 0;
         }
-
-        /* BUTTONS */
 
         .profile-links {
             margin-top: 25px;
@@ -135,19 +120,14 @@
 
         .button {
             display: inline-block;
-
             padding: 12px 22px;
             margin-top: 5px;
-
             background: #00d2ff;
             color: #030712;
-
             text-decoration: none;
             border-radius: 6px;
-
             font-weight: bold;
             font-size: 14px;
-
             transition:
                 background 0.25s,
                 transform 0.2s,
@@ -157,9 +137,7 @@
         .button:hover {
             background: #00ffcc;
             color: #030712;
-
             transform: translateY(-2px);
-
             box-shadow: 0 0 15px rgba(0, 255, 204, 0.35);
         }
 
@@ -175,31 +153,22 @@
             margin-top: 20px;
         }
 
-        /* SEKTIONEN */
-
         .section-container {
             width: 100%;
             max-width: 950px;
-
             background: rgba(15, 23, 42, 0.78);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-
             border: 1px solid rgba(0, 210, 255, 0.25);
             border-radius: 15px;
-
             padding: 25px;
             margin: 20px auto 0;
-
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
         }
-
-        /* PROJEKTE */
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-
             gap: 18px;
             margin-top: 20px;
         }
@@ -208,14 +177,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
             background: rgba(3, 7, 18, 0.65);
-
             border: 1px solid rgba(0, 255, 204, 0.2);
             border-radius: 10px;
-
             padding: 20px;
-
             transition:
                 border-color 0.3s,
                 box-shadow 0.3s,
@@ -224,9 +189,7 @@
 
         .project-card:hover {
             border-color: #00ffcc;
-
             box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
-
             transform: translateY(-3px);
         }
 
@@ -240,13 +203,10 @@
 
         .project-status {
             display: block;
-
             color: #00d2ff;
             font-size: 12px;
             font-weight: bold;
-
             margin-bottom: 10px;
-
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -262,22 +222,17 @@
             opacity: 1;
         }
 
-        /* KENNTNISSE */
-
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-
             gap: 12px;
             margin-top: 20px;
         }
 
         .skill-item {
             background: rgba(3, 7, 18, 0.6);
-
             border-left: 3px solid #00ffcc;
             border-radius: 6px;
-
             padding: 15px;
             font-size: 14px;
         }
@@ -287,29 +242,20 @@
             margin: 7px 0 0;
         }
 
-        /* PRAKTIKUM */
-
         .internship-box {
             background: rgba(3, 7, 18, 0.55);
-
             border: 1px solid rgba(0, 255, 204, 0.25);
             border-radius: 10px;
-
             padding: 20px;
             margin-top: 15px;
         }
 
-        /* FOOTER */
-
         footer {
             width: 100%;
             max-width: 950px;
-
             text-align: center;
-
             margin: 30px auto 0;
             padding: 15px 0;
-
             color: #a0aec0;
             font-size: 13px;
         }
@@ -318,10 +264,7 @@
             color: #a0aec0;
         }
 
-        /* MOBILE */
-
         @media (max-width: 650px) {
-
             body {
                 padding: 20px 12px;
             }
@@ -356,7 +299,6 @@
         }
 
         @media (max-width: 400px) {
-
             .profile-pic {
                 width: 160px;
                 height: 160px;
@@ -367,20 +309,13 @@
                 padding: 16px;
             }
         }
-
     </style>
 </head>
 
 <body>
-
     <main>
-
-        <!-- PROFIL -->
-
         <div class="main-container">
-
             <div class="profile-card">
-
                 <h1>Jens Overkämping</h1>
 
                 <div class="profile-subtitle">
@@ -404,7 +339,6 @@
                 </p>
 
                 <div class="profile-links">
-
                     <a
                         href="BewerbungSeite/docs/overkaemping_lebenslauf.pdf"
                         target="_blank"
@@ -413,7 +347,6 @@
                     >
                         Lebenslauf ansehen
                     </a>
-
                 </div>
 
                 <p class="privacy-note">
@@ -430,7 +363,6 @@
                         j.overkaemping2207@gmail.com
                     </a>
                 </p>
-
             </div>
 
             <img
@@ -438,14 +370,9 @@
                 alt="Profilbild von Jens Overkämping"
                 class="profile-pic"
             >
-
         </div>
 
-
-        <!-- BERUFLICHES ZIEL -->
-
         <section class="section-container">
-
             <h2>Berufliches Ziel</h2>
 
             <p>
@@ -467,14 +394,9 @@
                 zu verstehen und zunehmend eigenständig Lösungen
                 für unterschiedliche Probleme entwickeln zu können.
             </p>
-
         </section>
 
-
-        <!-- PROJEKTE -->
-
         <section class="section-container">
-
             <h2>Eigene Projekte</h2>
 
             <p>
@@ -484,11 +406,8 @@
             </p>
 
             <div class="projects-grid">
-
                 <article class="project-card">
-
                     <div>
-
                         <span class="project-status">
                             Abgeschlossen
                         </span>
@@ -502,7 +421,6 @@
                             dynamische Geschwindigkeit und ein
                             Combo-System.
                         </p>
-
                     </div>
 
                     <a
@@ -511,14 +429,10 @@
                     >
                         Projekt ansehen
                     </a>
-
                 </article>
 
-
                 <article class="project-card">
-
                     <div>
-
                         <span class="project-status">
                             Aktiv
                         </span>
@@ -532,7 +446,6 @@
                             IP-Adressen, Gateways, Routing, ARP
                             und TCP/UDP.
                         </p>
-
                     </div>
 
                     <a
@@ -541,14 +454,10 @@
                     >
                         Ausarbeitung ansehen
                     </a>
-
                 </article>
 
-
                 <article class="project-card">
-
                     <div>
-
                         <span class="project-status">
                             Abgeschlossen
                         </span>
@@ -560,7 +469,6 @@
                             zum Lernen wichtiger Netzwerk-Ports und
                             Dienste wie SSH, HTTP, HTTPS und DNS.
                         </p>
-
                     </div>
 
                     <a
@@ -569,14 +477,10 @@
                     >
                         Trainer starten
                     </a>
-
                 </article>
 
-
                 <article class="project-card future">
-
                     <div>
-
                         <span class="project-status">
                             Geplant
                         </span>
@@ -590,16 +494,11 @@
                             Benutzerrechten, Prozessen und
                             Systemadministration.
                         </p>
-
                     </div>
-
                 </article>
 
-
                 <article class="project-card future">
-
                     <div>
-
                         <span class="project-status">
                             Geplant
                         </span>
@@ -611,16 +510,11 @@
                             Portfreigaben, VPN-Verbindungen und
                             sicheren Netzwerkstrukturen.
                         </p>
-
                     </div>
-
                 </article>
 
-
                 <article class="project-card future">
-
                     <div>
-
                         <span class="project-status">
                             Geplant
                         </span>
@@ -633,20 +527,12 @@
                             und grundlegenden Konzepten zur
                             Wiederherstellung von Daten.
                         </p>
-
                     </div>
-
                 </article>
-
             </div>
-
         </section>
 
-
-        <!-- IT-KENNTNISSE -->
-
         <section class="section-container">
-
             <h2>IT-Kenntnisse und Lernbereiche</h2>
 
             <p>
@@ -656,119 +542,80 @@
             </p>
 
             <div class="skills-grid">
-
                 <div class="skill-item">
-
                     <strong>Netzwerktechnik</strong>
-
                     <p>
                         Grundlagen zu IPv4, DHCP, DNS, ARP,
                         VLANs, Routing, TCP/UDP und Ports.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>Windows</strong>
-
                     <p>
                         Installation, Konfiguration,
                         Benutzerverwaltung, Updates und
                         grundlegende Fehleranalyse.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>Linux</strong>
-
                     <p>
                         Erste Erfahrungen mit Debian und Ubuntu
                         sowie grundlegende Arbeit mit der
                         Linux-Kommandozeile.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>Hardware und Analyse</strong>
-
                     <p>
                         Interesse und Erfahrung mit PC-Komponenten,
                         Zusammenbau, Aufrüstung und Fehlersuche.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>JavaScript</strong>
-
                     <p>
                         Grundlagen der Programmierlogik,
                         Bedingungen, Schleifen, Funktionen und
                         interaktive Webanwendungen.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>IT-Sicherheit</strong>
-
                     <p>
                         Grundlagen zu sicheren Netzwerken,
                         Benutzerkonten, Zwei-Faktor-Authentifizierung,
                         Firewalls und Zugriffsrechten.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>Backup und Datensicherung</strong>
-
                     <p>
                         Erste praktische Einblicke in Backups,
                         Aufbewahrungszeiträume und Speicherverwaltung.
                     </p>
-
                 </div>
 
-
                 <div class="skill-item">
-
                     <strong>Fehleranalyse</strong>
-
                     <p>
                         Systematische Fehlersuche bei Netzwerken,
                         Konfigurationen, Diensten und Endgeräten.
                     </p>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- PRAKTISCHE ERFAHRUNG -->
-
         <section class="section-container">
-
             <h2>Praktische Erfahrung</h2>
 
             <div class="internship-box">
-
                 <span class="project-status">
                     Praktikum abgeschlossen
                 </span>
@@ -785,132 +632,89 @@
                 </p>
 
                 <div class="skills-grid">
-
                     <div class="skill-item">
-
                         <strong>IT-Support</strong>
-
                         <p>
                             Einblicke in Kundenanfragen,
                             Fehleranalysen und Remote-Support.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Active Directory</strong>
-
                         <p>
                             Einblicke in Benutzerverwaltung,
                             Berechtigungen und administrative Aufgaben.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Server und Backups</strong>
-
                         <p>
                             Kontrolle von Backups, Speicherplatz
                             und verschiedenen Serverzuständen.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>IT-Sicherheit</strong>
-
                         <p>
                             Einblicke in Sicherheitslösungen,
                             Zwei-Faktor-Authentifizierung,
                             Sophos und Hornetsecurity.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Windows und PCs</strong>
-
                         <p>
                             Installation von Windows, Updates
                             und Einrichtung verschiedener Programme.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Microsoft 365</strong>
-
                         <p>
                             Einblicke in Teams, Benutzerkonten,
                             Lizenzen und typische Supportfälle.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>E-Mail und Archivierung</strong>
-
                         <p>
                             Arbeit mit Outlook-Regeln sowie Einblicke
                             in MailStore und E-Mail-Archivierung.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>PowerShell</strong>
-
                         <p>
                             Einblicke in Skripte und automatisierte
                             Aufgaben zur Systempflege.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Hardware</strong>
-
                         <p>
                             Vorbereitung, Reinigung und Einrichtung
                             von PCs und Netzwerkhardware.
                         </p>
-
                     </div>
 
-
                     <div class="skill-item">
-
                         <strong>Kundenkontakt</strong>
-
                         <p>
                             Einblicke in Kundentermine, Außentermine
                             und den Arbeitsalltag eines IT-Dienstleisters.
                         </p>
-
                     </div>
-
                 </div>
 
-
                 <p style="margin-top: 20px;">
-
                     Besonders interessant war für mich, die zuvor
                     selbstständig gelernten Themen auch im
                     Arbeitsalltag wiederzufinden.
@@ -919,18 +723,11 @@
                     Systemintegration weiter bestärkt und mir
                     einen guten Eindruck von den täglichen
                     Aufgaben vermittelt.
-
                 </p>
-
             </div>
-
         </section>
 
-
-        <!-- WEITERLERNEN -->
-
         <section class="section-container">
-
             <h2>Aktuelle Lernziele</h2>
 
             <p>
@@ -946,21 +743,13 @@
                 Ausarbeitungen ergänze ich nach und nach
                 mit neuen Inhalten.
             </p>
-
         </section>
-
     </main>
 
-
-    <!-- FOOTER -->
-
     <footer>
-
         <p>
             IT-Portfolio | Jens Overkämping
         </p>
-
     </footer>
-
 </body>
 </html>
